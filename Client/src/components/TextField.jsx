@@ -3,6 +3,9 @@ import { DEFAULT_INPUT_VARIANT } from '../constants';
 
 const TextField = ({
     label,
+    style,
+    value,
+    handleChange,
     variant= DEFAULT_INPUT_VARIANT
 }) =>{
     return(
@@ -10,6 +13,9 @@ const TextField = ({
         fullWidth
        label={label}
         variant={variant}
+        style={style}
+        value={value}
+        onChange={handleChange}
         
          
         />
