@@ -1,5 +1,4 @@
-import MuiButton from "@mui/material/Button"
-
+import MuiButton from "@mui/material/Button";
 
 // const Button = ({
 //     label,
@@ -13,12 +12,17 @@ import MuiButton from "@mui/material/Button"
 //         </MuiButton>
 //     )
 // }
-const Button = ({ children, ...props}) => {
-        return (
-                <MuiButton {...props}>
-                    {children}
-                </MuiButton>
-            )
-        }
-        
-        export default Button
+const Button = ({ children, color, style, handleClick, variant, type }) => {
+  return (
+    <MuiButton
+      color={color}
+      style={style}
+      onClick={handleClick}
+      variant={variant}
+      type={type}>
+      {children}
+    </MuiButton>
+  );
+};
+
+export default Button;

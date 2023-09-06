@@ -1,19 +1,15 @@
-import Typography from '@mui/material/Typography';
-import { APP_NAME } from '../constants';
+import Typography from "@mui/material/Typography";
 
-const Title = ({ children, variant, style}) => {
+const Title = ({ children, variant, style, component, handleClick }) => {
   return (
-    <Typography 
-    variant={variant} 
-    style={style} 
-    gutterBottom
-    {...children}
-    >
-  
-    Register with {APP_NAME}
-    
+    <Typography
+      variant={variant}
+      style={style}
+      component={component}
+      onClick={handleClick}>
+      {children}
     </Typography>
-  )
-}
+  );
+};
 
-export default Title
+export default Title;

@@ -4,17 +4,24 @@ import MuiFormControlLabel from "@mui/material/FormControlLabel";
 import MuiFormControl from "@mui/material/FormControl";
 import MuiFormLabel from "@mui/material/FormLabel";
 
-
 const Radio = ({
   label,
+  style,
+  required,
+  value,
   options,
+  handleChange,
   alignHorizontal = false,
   id = crypto.randomUUID(),
 }) => {
   return (
-    <MuiFormControl>
+    <MuiFormControl required={required} style={style}>
       <MuiFormLabel id={id}>{label}</MuiFormLabel>
-      <MuiRadioGroup row={alignHorizontal} aria-labelledby={id}>
+      <MuiRadioGroup
+        row={alignHorizontal}
+        aria-labelledby={id}
+        value={value}
+        onChange={handleChange}>
         {options.map((option) => {
           return (
             <MuiFormControlLabel
