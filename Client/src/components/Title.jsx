@@ -3,9 +3,16 @@ import { APP_NAME } from '../constants';
 
 const Title = ({ children, variant, style}) => {
   return (
-    <Typography variant={variant} style={style} gutterBottom>
-     Register with {APP_NAME}
-      </Typography>
+    <Typography 
+    variant={variant} 
+    style={style} 
+    gutterBottom
+    {...children}
+    >
+  
+    Register with {APP_NAME}
+    
+    </Typography>
   )
 }
 
