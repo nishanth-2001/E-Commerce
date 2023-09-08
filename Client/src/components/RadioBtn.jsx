@@ -7,9 +7,11 @@ import MuiFormLabel from "@mui/material/FormLabel";
 const Radio = ({
   label,
   style,
+  name,
   required,
   value,
   options,
+  handleBlur,
   handleChange,
   alignHorizontal = false,
   id = crypto.randomUUID(),
@@ -21,6 +23,8 @@ const Radio = ({
         row={alignHorizontal}
         aria-labelledby={id}
         value={value}
+        name={name}
+        onBlur={handleBlur}
         onChange={handleChange}>
         {options.map((option) => {
           return (

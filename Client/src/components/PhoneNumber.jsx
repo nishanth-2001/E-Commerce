@@ -11,7 +11,9 @@ const PhoneNumberInput = ({
   label,
   style,
   value,
+  name,
   handleChange,
+  handleBlur,
 
   required = false,
 
@@ -31,7 +33,15 @@ const PhoneNumberInput = ({
       <Input
         id={id}
         value={value}
+        name={name}
+        onBlur={handleBlur}
         onChange={handleChange}
+        onKeyDown={(e) => {
+          const invalidChars = ["+", "-", "e", "."];
+          if (invalidChars.includes(e.key)) {
+            e.preventDefault();
+          }
+        }}
         startAdornment={
           <InputAdornment position="start">{COUNTRY_CODE}</InputAdornment>
         }

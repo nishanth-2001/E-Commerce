@@ -5,7 +5,11 @@ const TextField = ({
   label,
   style,
   value,
+  name,
+
+  handleBlur,
   handleChange,
+  errorMessage = "",
   type = "text",
   required = false,
   variant = DEFAULT_INPUT_VARIANT,
@@ -17,9 +21,13 @@ const TextField = ({
       variant={variant}
       style={style}
       value={value}
+      name={name}
+      onBlur={handleBlur}
       onChange={handleChange}
       type={type}
       required={required}
+      error={Boolean(errorMessage)}
+      helperText={errorMessage}
     />
   );
 };
