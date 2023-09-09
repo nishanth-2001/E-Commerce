@@ -1,10 +1,13 @@
 import express from "express";
 import { PORT } from "./constant.js";
+import authRouter from "../src/routes/v1/auth.js";
 
 const initServer = () => {
   const app = express();
 
   app.use(express.json());
+
+  app.use("/auth", authRouter);
 
   app.get("/", (req, res) => {
     res.json({
