@@ -4,6 +4,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import FilledInput from "@mui/material/FilledInput";
 import StandardInput from "@mui/material/Input";
+import FormHelperText from "@mui/material/FormHelperText";
 
 import { COUNTRY_CODE, DEFAULT_INPUT_VARIANT } from "../constants";
 
@@ -14,6 +15,7 @@ const PhoneNumberInput = ({
   name,
   handleChange,
   handleBlur,
+  errorMessage = "",
 
   required = false,
 
@@ -28,7 +30,12 @@ const PhoneNumberInput = ({
     Input = StandardInput;
   }
   return (
-    <FormControl fullWidth required={required} variant={variant} style={style}>
+    <FormControl
+      error={Boolean(errorMessage)}
+      fullWidth
+      required={required}
+      variant={variant}
+      style={style}>
       <InputLabel htmlFor={id}>{label}</InputLabel>
       <Input
         id={id}
@@ -47,6 +54,7 @@ const PhoneNumberInput = ({
         }
         label="PhoneNumber"
       />
+      <FormHelperText>{errorMessage}</FormHelperText>
     </FormControl>
   );
 };

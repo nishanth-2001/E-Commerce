@@ -1,6 +1,7 @@
 import * as yup from "yup";
+import LoginSchema from "./login";
 
-const RegistrationSchema = yup.object({
+const RegistrationSchema = LoginSchema.shape({
   firstName: yup
     .string("Invalid First Name")
     .required("First Name is Required"),
@@ -8,7 +9,7 @@ const RegistrationSchema = yup.object({
   lastName: yup.string("Invalid Last Name"),
 
   email: yup
-    .string("Invalid Email ")
+    .string("Invalid Email")
     .email("Invalid Email")
     .required("Email is Required"),
 

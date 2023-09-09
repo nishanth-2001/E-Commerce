@@ -3,6 +3,7 @@ import MuiRadioGroup from "@mui/material/RadioGroup";
 import MuiFormControlLabel from "@mui/material/FormControlLabel";
 import MuiFormControl from "@mui/material/FormControl";
 import MuiFormLabel from "@mui/material/FormLabel";
+import FormHelperText from "@mui/material/FormHelperText";
 
 const Radio = ({
   label,
@@ -13,11 +14,15 @@ const Radio = ({
   options,
   handleBlur,
   handleChange,
+  errorMessage = "",
   alignHorizontal = false,
   id = crypto.randomUUID(),
 }) => {
   return (
-    <MuiFormControl required={required} style={style}>
+    <MuiFormControl
+      error={Boolean(errorMessage)}
+      required={required}
+      style={style}>
       <MuiFormLabel id={id}>{label}</MuiFormLabel>
       <MuiRadioGroup
         row={alignHorizontal}
@@ -37,6 +42,7 @@ const Radio = ({
           );
         })}
       </MuiRadioGroup>
+      <FormHelperText>{errorMessage}</FormHelperText>
     </MuiFormControl>
   );
 };
