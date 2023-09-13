@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { nanoid } from "nanoid";
 
-import { ENUMS } from "../constant.js";
+import { ENUMS, ROLES } from "../constant.js";
 
 const UserSchema = new mongoose.Schema({
   uid: {
@@ -35,13 +35,19 @@ const UserSchema = new mongoose.Schema({
   },
   roles: {
     type: String,
-    enum: ENUMS.ROLES,
-    default: ENUMS.ROLES.CUSTOMER,
+    enum: ENUMS.ROLE,
+    default: ROLES.CUSTOMER,
   },
   gender: {
     type: String,
     enum: ENUMS.GENDER,
     required: true,
+  },
+
+  active: {
+    type: Boolean,
+    required: true,
+    default: true,
   },
 });
 
