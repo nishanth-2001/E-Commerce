@@ -25,5 +25,19 @@ export const ERROR_TYPES = {
   UNAUTHORIZED: { CODE: "UNAUTHORIZED", STATUS_CODE: 401 },
   FORBIDDEN: { CODE: "FORBIDDEN", STATUS_CODE: 403 },
   METHOD_NOT_ALLOWED: { CODE: "METHOD_NOT_ALLOWED", STATUS_CODE: 405 },
+  CONFLICT: { CODE: "CONFLICT", STATUS_CODE: 409 },
   INTERNAL_SERVER_ERROR: { CODE: "INTERNAL_SERVER_ERROR", STATUS_CODE: 500 },
+};
+
+export const ERR_MESSAGE = {
+  UNIQUE: {
+    USER_PHONE_NUMBER_UNIQUE: {
+      NAME: "USER_PHONE_NUMBER_UNIQUE",
+      message: "Phone Number Is Already Taken",
+    },
+    USER_EMAIL_UNIQUE: {
+      NAME: "USER_EMAIL_UNIQUE",
+      message: "Email is Already Taken",
+    },
+  },
 };

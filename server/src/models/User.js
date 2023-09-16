@@ -2,9 +2,11 @@ import mongoose from "mongoose";
 import { nanoid } from "nanoid";
 
 import { ENUMS, ROLES } from "../constant.js";
+import { PhoneSchema } from "./subSchema/index.js";
 
 /**
  * @typedef {import("mongoose").InferSchemaType<typeof UserSchema>} User - User Data
+ * @typedef {import("mongoose").HydratedDocument<User>} UserDocument - user document
  */
 
 /**
@@ -24,26 +26,19 @@ const UserSchema = new mongoose.Schema({
   },
   lastName: {
     type: String,
-    default: "",
+    default: null,
   },
   email: {
     type: String,
     required: true,
-    unique: true,
   },
   password: {
     type: String,
     required: true,
   },
   phoneNumber: {
-    number: {
-      type: String,
-      required: true,
-    },
-    code: {
-      type: String,
-      required: true,
-    },
+    type: PhoneSchema,
+    required: true,
   },
   roles: {
     type: String,
@@ -61,8 +56,34 @@ const UserSchema = new mongoose.Schema({
     required: true,
     default: true,
   },
+
+  verified: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+
+  verificationCode: {
+    type: String,
+    required: true,
+    default: () => nanoid(50),
+  },
+
+  verifiedCreatedAt: {
+    type: Date,
+    required: true,
+  },
+
+  verifiedAt: {
+    type: Date,
+    default: null,
+  },
 });
 
-UserSchema.index({ phoneNumber: 1 }, { unique: true });
+UserSchema.index(
+  { phoneNumber: 1 },
+  { unique: true, name: "phoneNumberUnique" }
+);
+UserSchema.index({ email: 1 }, { unique: true, name: "emailUnique" });
 
 export default mongoose.model("User", UserSchema);

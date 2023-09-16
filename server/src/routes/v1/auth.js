@@ -1,7 +1,11 @@
 import express from "express";
 
 import { validate } from "../../middlewares/index.js";
-import { loginSchema, registrationSchema } from "../../schemas/index.js";
+import {
+  loginSchema,
+  registrationSchema,
+  getAllUsers,
+} from "../../schemas/index.js";
 import { registerHandler } from "../../controllers/auth.js";
 
 const router = express.Router();
@@ -9,6 +13,12 @@ const router = express.Router();
 router.post("/register", validate(registrationSchema, "body"), registerHandler);
 
 router.post("/login", validate(loginSchema, "body"), (req, res) => {
+  res.json({
+    resister: true,
+  });
+});
+
+router.get("/getUser", validate(getAllUsers, "body"), (req, res) => {
   res.json({
     resister: true,
   });

@@ -2,7 +2,7 @@ import User from "../models/User.js";
 
 /**
  * converts user object to  user response
- * @param {import ("../models/User.js").User} user - userdata
+ * @param {import ("../models/User.js").UserDocument | import ("../models/User.js").User} user - userdata
  * @returns {import ("../models/User.js").UserResponse}
  */
 const makeUserResponse = (user) => {
@@ -21,6 +21,7 @@ const makeUserResponse = (user) => {
 /**
  * creates a new user
  * @param {import("../schemas/register.js").RegistrationInputType} inputData -data of new user
+ * @returns {Promise<import("../models/User.js").UserDocument}
  */
 const createNewUser = async (inputData) => {
   const newUser = new User({
@@ -30,6 +31,7 @@ const createNewUser = async (inputData) => {
     password: inputData.password,
     phoneNumber: inputData.phoneNumber,
     gender: inputData.gender,
+    verificationCreatedAt: new Date(),
   });
   await newUser.save();
 

@@ -7,7 +7,7 @@ import { ERROR_TYPES } from "../constant.js";
  */
 
 /**
- * @typedef {"NOT_FOUND"|"BAD_REQUEST"|"UNAUTHORIZED"|"FORBIDDEN"|"METHOD_NOT_ALLOWED"|"INTERNAL_SERVER_ERROR"} Errors - List of Errors
+ * @typedef {"NOT_FOUND"|"BAD_REQUEST"|"UNAUTHORIZED"|"FORBIDDEN"|"METHOD_NOT_ALLOWED"|"INTERNAL_SERVER_ERROR"|"CONFLICT"} Errors - List of Errors
  */
 
 /**
