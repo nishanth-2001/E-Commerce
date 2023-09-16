@@ -3,6 +3,14 @@ import { nanoid } from "nanoid";
 
 import { ENUMS, ROLES } from "../constant.js";
 
+/**
+ * @typedef {import("mongoose").InferSchemaType<typeof UserSchema>} User - User Data
+ */
+
+/**
+ * @typedef {Omit<User, "_id"|"password"|"__v"|"role"|"active">} UserResponse - Response User Data
+ */
+
 const UserSchema = new mongoose.Schema({
   uid: {
     type: String,
@@ -26,12 +34,16 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    unique: true,
   },
   phoneNumber: {
-    type: String,
-    required: true,
-    unique: true,
+    number: {
+      type: String,
+      required: true,
+    },
+    code: {
+      type: String,
+      required: true,
+    },
   },
   roles: {
     type: String,
@@ -50,5 +62,7 @@ const UserSchema = new mongoose.Schema({
     default: true,
   },
 });
+
+UserSchema.index({ phoneNumber: 1 }, { unique: true });
 
 export default mongoose.model("User", UserSchema);
