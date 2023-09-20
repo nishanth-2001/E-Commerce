@@ -27,11 +27,7 @@ export const validate = (schema, type) => {
    */
   return async (req, _res, next) => {
     try {
-      const parsedData = schema.cast(req[type], {
-        stripUnknown: false,
-        assert: false,
-      });
-      await schema.validate(parsedData, { strict: true });
+      await schema.validate(req[type], { strict: true, abortEarly: true });
       req[type] = parsedData;
       return next();
     } catch (err) {

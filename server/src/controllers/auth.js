@@ -1,4 +1,4 @@
-import { ERROR_TYPES } from "../constant.js";
+import { ERROR_TYPES, ERR_MESSAGE } from "../constant.js";
 import { AppError, ServerError } from "../helpers/errors.js";
 import { createNewUser, makeUserResponse } from "../helpers/user.js";
 
@@ -10,16 +10,21 @@ import { createNewUser, makeUserResponse } from "../helpers/user.js";
 const registerHandler = async (req, res, next) => {
   try {
     const input = req.body;
-    await createNewUser(input);
+    const newUser = await createNewUser(input);
+    const respUser = makeUserResponse(newUser);
 
-    return res.status(201).send();
+    return res.status(201).json(respUser);
   } catch (err) {
     if (err instanceof AppError || err instanceof ServerError) {
       return next(err);
     }
     if (err.code === 11000) {
       const dupIdx = err.message.match(/index\: (.+) dup key/)?.[1];
-      return next(new AppError(dupIdx, ERROR_TYPES.BAD_REQUEST));
+      if (dupIdx && ERR_MESSAGE.UNIQUE[dupIdx]) {
+        return next(
+          new AppError(ERR_MESSAGE.UNIQUE[dupIdx].MESSAGE, ERROR_TYPES.CONFLICT)
+        );
+      }
     }
     return next(new ServerError(err, err.message));
   }

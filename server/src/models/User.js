@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import { nanoid } from "nanoid";
 
 import { ENUMS, ROLES } from "../constant.js";
+import { ERR_MESSAGE } from "../constant.js";
+
 import { PhoneSchema } from "./subSchema/index.js";
 
 /**
@@ -82,8 +84,11 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.index(
   { phoneNumber: 1 },
-  { unique: true, name: "phoneNumberUnique" }
+  { unique: true, name: ERR_MESSAGE.UNIQUE.USER_PHONE_NUMBER_UNIQUE.NAME }
 );
-UserSchema.index({ email: 1 }, { unique: true, name: "emailUnique" });
+UserSchema.index(
+  { email: 1 },
+  { unique: true, name: ERR_MESSAGE.UNIQUE.USER_EMAIL_UNIQUE.NAME }
+);
 
 export default mongoose.model("User", UserSchema);

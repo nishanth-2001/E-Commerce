@@ -1,4 +1,4 @@
-import { ERROR_TYPES } from "../constant.js";
+import { ERROR_TYPES, ERR_MESSAGE } from "../constant.js";
 
 /**
  * @typedef {Object} ErrorCodeType - Map of Error Types
@@ -72,5 +72,20 @@ class ServerError extends CustomError {
     });
   }
 }
+
+const handleApiErr = () => {
+  if (err instanceof AppError || err instanceof ServerError) {
+    return next(err);
+  }
+  if (err.code === 11000) {
+    const dupIdx = err.message.match(/index\: (.+) dup key/)?.[1];
+    if (dupIdx && ERR_MESSAGE.UNIQUE[dupIdx]) {
+      return next(
+        new AppError(ERR_MESSAGE.UNIQUE[dupIdx].MESSAGE, ERROR_TYPES.CONFLICT)
+      );
+    }
+  }
+  return next(new ServerError(err, err.message));
+};
 
 export { AppError, ServerError };
