@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
 import { nanoid } from "nanoid";
 
-import { ENUMS, ROLES } from "../constant.js";
-import { ERR_MESSAGE } from "../constant.js";
+import { ENUMS, ROLES, ERR_MESSAGE } from "../constants/index.js";
 
 import { PhoneSchema } from "./subSchema/index.js";
 
@@ -42,7 +41,7 @@ const UserSchema = new mongoose.Schema({
     type: PhoneSchema,
     required: true,
   },
-  roles: {
+  role: {
     type: String,
     enum: ENUMS.ROLE,
     default: ROLES.CUSTOMER,
@@ -71,7 +70,7 @@ const UserSchema = new mongoose.Schema({
     default: () => nanoid(50),
   },
 
-  verifiedCreatedAt: {
+  verificationCreatedAt: {
     type: Date,
     required: true,
   },

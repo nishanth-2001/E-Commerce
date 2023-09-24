@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 
 import Container from "../components/Container";
 
-import { APP_NAME } from "../constants";
+import { API_URL, APP_NAME, ROUTES } from "../constants";
 
 import TextField from "../components/TextField";
 import PasswordField from "../components/PasswordField";
@@ -24,8 +24,39 @@ const Register = () => {
       gender: "",
     },
     validationSchema: RegistrationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async(formValue) => {
+      try {
+        const url = API_URL + ROUTES.API.AUTH.REGISTER
+        const payload = () =>{
+          firstName = "formValue.firstName",
+          lastName= "formValue.lastName",
+          email= "formValue.email",
+          password= "formValue.password",
+          phoneNumber= {
+            number= "formValue.number",
+            Code= "COUNTRY_CODE"
+
+          },
+          gender="formValue.gender"
+
+        }
+
+        const resp = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+
+        })
+
+        if (resp.ok) {
+          alert("success")
+          
+        }else {
+          alert("err1")
+        }
+      } catch(err){
+        alert("err2")
+      }
     },
   });
 

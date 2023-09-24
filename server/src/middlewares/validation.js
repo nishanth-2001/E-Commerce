@@ -1,7 +1,7 @@
 import { ValidationError } from "yup";
 
 import { AppError, ServerError } from "../helpers/errors.js";
-import { ERROR_TYPES } from "../constant.js";
+import { ERROR_TYPES } from "../constants/index.js";
 
 /**
  * @param {Error|ValidationError} err - Error Object
@@ -28,7 +28,7 @@ export const validate = (schema, type) => {
   return async (req, _res, next) => {
     try {
       await schema.validate(req[type], { strict: true, abortEarly: true });
-      req[type] = parsedData;
+
       return next();
     } catch (err) {
       const errData = handleValidationErr(err);

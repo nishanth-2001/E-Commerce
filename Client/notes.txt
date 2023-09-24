@@ -1,0 +1,5 @@
+to: {user.email}
+
+subject => `welcome to {APP_NAME}`
+
+Body => `welcome{ user.name} click this link to verify <a> [{APP_URL}/verify/{verificationCode}]`

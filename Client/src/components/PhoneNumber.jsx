@@ -50,7 +50,7 @@ const PhoneNumberInput = ({
           }
         }}
         startAdornment={
-          <InputAdornment position="start">{COUNTRY_CODE}</InputAdornment>
+          <InputAdornment position="start">+{COUNTRY_CODE}</InputAdornment>
         }
         label="PhoneNumber"
       />

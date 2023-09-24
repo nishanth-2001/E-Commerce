@@ -1,5 +1,7 @@
 import User from "../models/User.js";
 
+import argon2 from "argon2";
+
 /**
  * converts user object to  user response
  * @param {import ("../models/User.js").UserDocument | import ("../models/User.js").User} user - userdata
@@ -24,11 +26,12 @@ const makeUserResponse = (user) => {
  * @returns {Promise<import("../models/User.js").UserDocument}
  */
 const createNewUser = async (inputData) => {
+  const hashedPassword = await argon2.hash(inputData.password);
   const newUser = new User({
     firstName: inputData.firstName,
     lastName: inputData.lastName,
     email: inputData.email,
-    password: inputData.password,
+    password: hashedPassword,
     phoneNumber: inputData.phoneNumber,
     gender: inputData.gender,
     verificationCreatedAt: new Date(),

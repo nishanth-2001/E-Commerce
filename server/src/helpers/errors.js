@@ -1,4 +1,4 @@
-import { ERROR_TYPES, ERR_MESSAGE } from "../constant.js";
+import { ERROR_TYPES, ERR_MESSAGE } from "../constants/index.js";
 
 /**
  * @typedef {Object} ErrorCodeType - Map of Error Types
@@ -73,7 +73,7 @@ class ServerError extends CustomError {
   }
 }
 
-const handleApiErr = () => {
+const handleApiErr = (err, next) => {
   if (err instanceof AppError || err instanceof ServerError) {
     return next(err);
   }
@@ -88,4 +88,4 @@ const handleApiErr = () => {
   return next(new ServerError(err, err.message));
 };
 
-export { AppError, ServerError };
+export { AppError, ServerError, handleApiErr };

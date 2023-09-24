@@ -1,5 +1,5 @@
-import { ERROR_TYPES, ERR_MESSAGE } from "../constant.js";
-import { AppError, ServerError } from "../helpers/errors.js";
+import { ERROR_TYPES, ERR_MESSAGE } from "../constants/index.js";
+import { AppError, ServerError, handleApiErr } from "../helpers/errors.js";
 import { createNewUser, makeUserResponse } from "../helpers/user.js";
 
 /**
@@ -15,18 +15,7 @@ const registerHandler = async (req, res, next) => {
 
     return res.status(201).json(respUser);
   } catch (err) {
-    if (err instanceof AppError || err instanceof ServerError) {
-      return next(err);
-    }
-    if (err.code === 11000) {
-      const dupIdx = err.message.match(/index\: (.+) dup key/)?.[1];
-      if (dupIdx && ERR_MESSAGE.UNIQUE[dupIdx]) {
-        return next(
-          new AppError(ERR_MESSAGE.UNIQUE[dupIdx].MESSAGE, ERROR_TYPES.CONFLICT)
-        );
-      }
-    }
-    return next(new ServerError(err, err.message));
+    return handleApiErr(err, next);
   }
 };
 

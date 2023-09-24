@@ -25,8 +25,8 @@ const RegistrationSchema = LoginSchema.shape({
 
   phoneNumber: yup
     .string("Invalid Phone Number")
-    .length(10, "Invalid Phone Number")
-    .matches(/^[6-9]/, "Invalid Phone Number")
+
+    .matches(/^[0-9-]+$/, "Invalid Phone Number")
     .required("Phone Number Required"),
 
   gender: yup
