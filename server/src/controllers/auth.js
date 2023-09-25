@@ -13,7 +13,7 @@ const registerHandler = async (req, res, next) => {
     const newUser = await createNewUser(input);
     const respUser = makeUserResponse(newUser);
 
-    return res.status(201).json(respUser);
+    return res.status(201).json({ user: respUser });
   } catch (err) {
     return handleApiErr(err, next);
   }

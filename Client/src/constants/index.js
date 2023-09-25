@@ -14,7 +14,7 @@ export const ROUTES = Object.freeze({
   },
   API: {
     AUTH: {
-      REGISTER: "/api/vi/auth/register",
+      REGISTER: "/api/v1/auth/register",
     },
   },
 });

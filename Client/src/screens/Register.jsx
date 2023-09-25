@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 
 import Container from "../components/Container";
 
-import { API_URL, APP_NAME, ROUTES } from "../constants";
+import { APP_NAME, COUNTRY_CODE, ROUTES } from "../constants";
 
 import TextField from "../components/TextField";
 import PasswordField from "../components/PasswordField";
@@ -11,6 +11,7 @@ import PhoneNumber from "../components/PhoneNumber";
 import Title from "../components/Title";
 import Button from "../components/Button";
 import RegistrationSchema from "../schemas/register";
+import { fetcher } from "../utils";
 
 const Register = () => {
   const formik = useFormik({
@@ -24,38 +25,29 @@ const Register = () => {
       gender: "",
     },
     validationSchema: RegistrationSchema,
-    onSubmit: async(formValue) => {
-      try {
-        const url = API_URL + ROUTES.API.AUTH.REGISTER
-        const payload = () =>{
-          firstName = "formValue.firstName",
-          lastName= "formValue.lastName",
-          email= "formValue.email",
-          password= "formValue.password",
-          phoneNumber= {
-            number= "formValue.number",
-            Code= "COUNTRY_CODE"
+    onSubmit: async (formValue) => {
+      const payload = {
+        firstName: formValue.firstName,
+        lastName: formValue.lastName,
+        email: formValue.email,
+        password: formValue.password,
+        phoneNumber: {
+          number: formValue.phoneNumber.toString(),
+          code: COUNTRY_CODE,
+        },
+        gender: formValue.gender,
+      };
 
-          },
-          gender="formValue.gender"
+      const { err, data, message } = await fetcher(
+        ROUTES.API.AUTH.REGISTER,
+        "POST",
+        payload
+      );
 
-        }
-
-        const resp = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-
-        })
-
-        if (resp.ok) {
-          alert("success")
-          
-        }else {
-          alert("err1")
-        }
-      } catch(err){
-        alert("err2")
+      if (err) {
+        alert(message);
+      } else {
+        alert(JSON.stringify(data));
       }
     },
   });

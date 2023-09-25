@@ -1,7 +1,11 @@
 import express from "express";
 
 import { validate } from "../../middlewares/index.js";
-import { loginSchema, registrationSchema } from "../../schemas/index.js";
+import {
+  loginSchema,
+  registrationSchema,
+  verificationSchema,
+} from "../../schemas/index.js";
 
 import { registerHandler } from "../../controllers/auth.js";
 
@@ -12,6 +16,12 @@ router.post("/register", validate(registrationSchema, "body"), registerHandler);
 router.post("/login", validate(loginSchema, "body"), (req, res) => {
   res.json({
     resister: true,
+  });
+});
+
+router.post("/verify", validate(verificationSchema, "body"), (req, res) => {
+  res.json({
+    verified: true,
   });
 });
 

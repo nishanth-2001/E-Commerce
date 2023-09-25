@@ -23,7 +23,7 @@ export const registrationSchema = loginSchema
           .string("Invalid Country Code")
           .matches(/^[0-9\-]+$/, "Invalid Country Code")
 
-          .required("Country Coder Required"),
+          .required("Country Code Required"),
       })
       .required("Phone Number is required"),
     gender: yup

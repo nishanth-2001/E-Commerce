@@ -1,16 +1,9 @@
 import express from "express";
 
-import User from "../../models/User.js";
+import { userHandler } from "../../controllers/user.js";
 
 const router = express.Router();
 
-router.get("/getAllUser", async (req, res) => {
-  try {
-    const getAllUser = await User.find();
-    res.json(getAllUser);
-  } catch (err) {
-    res.status(404).json({ message: err.message });
-  }
-});
+router.get("/getAllUsers", userHandler);
 
 export default router;

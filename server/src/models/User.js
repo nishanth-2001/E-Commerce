@@ -14,72 +14,75 @@ import { PhoneSchema } from "./subSchema/index.js";
  * @typedef {Omit<User, "_id"|"password"|"__v"|"role"|"active">} UserResponse - Response User Data
  */
 
-const UserSchema = new mongoose.Schema({
-  uid: {
-    type: String,
-    required: true,
-    unique: true,
-    default: () => nanoid(),
-  },
-  firstName: {
-    type: String,
-    required: true,
-  },
-  lastName: {
-    type: String,
-    default: null,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  phoneNumber: {
-    type: PhoneSchema,
-    required: true,
-  },
-  role: {
-    type: String,
-    enum: ENUMS.ROLE,
-    default: ROLES.CUSTOMER,
-  },
-  gender: {
-    type: String,
-    enum: ENUMS.GENDER,
-    required: true,
-  },
+const UserSchema = new mongoose.Schema(
+  {
+    uid: {
+      type: String,
+      required: true,
+      unique: true,
+      default: () => nanoid(),
+    },
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
+      type: String,
+      default: null,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    phoneNumber: {
+      type: PhoneSchema,
+      required: true,
+    },
+    role: {
+      type: String,
+      enum: ENUMS.ROLE,
+      default: ROLES.CUSTOMER,
+    },
+    gender: {
+      type: String,
+      enum: ENUMS.GENDER,
+      required: true,
+    },
 
-  active: {
-    type: Boolean,
-    required: true,
-    default: true,
-  },
+    active: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
 
-  verified: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
+    verified: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
 
-  verificationCode: {
-    type: String,
-    required: true,
-    default: () => nanoid(50),
-  },
+    verificationCode: {
+      type: String,
+      required: true,
+      default: () => nanoid(),
+    },
 
-  verificationCreatedAt: {
-    type: Date,
-    required: true,
-  },
+    verificationCreatedAt: {
+      type: Date,
+      required: true,
+    },
 
-  verifiedAt: {
-    type: Date,
-    default: null,
+    verifiedAt: {
+      type: Date,
+      default: null,
+    },
   },
-});
+  { timestamps: true }
+);
 
 UserSchema.index(
   { phoneNumber: 1 },

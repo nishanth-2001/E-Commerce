@@ -13,11 +13,11 @@ export const ERR_MESSAGE = {
   UNIQUE: {
     USER_PHONE_NUMBER_UNIQUE: {
       NAME: "USER_PHONE_NUMBER_UNIQUE",
-      message: "Phone Number Is Already Taken",
+      MESSAGE: "Phone Number Is Already Taken",
     },
     USER_EMAIL_UNIQUE: {
       NAME: "USER_EMAIL_UNIQUE",
-      message: "Email is Already Taken",
+      MESSAGE: "Email is Already Taken",
     },
   },
 };

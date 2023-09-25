@@ -41,6 +41,8 @@ const PhoneNumberInput = ({
         id={id}
         value={value}
         name={name}
+        label={label}
+        type="number"
         onBlur={handleBlur}
         onChange={handleChange}
         onKeyDown={(e) => {
@@ -52,7 +54,6 @@ const PhoneNumberInput = ({
         startAdornment={
           <InputAdornment position="start">+{COUNTRY_CODE}</InputAdornment>
         }
-        label="PhoneNumber"
       />
       <FormHelperText>{errorMessage}</FormHelperText>
     </FormControl>
