@@ -1,14 +1,16 @@
-import express from "express";
-const router = express.Router();
+import { handleApiErr } from "../helpers/errors.js";
 
-const userHandler = router.get("/getAllUsers", async (req, res) => {
+import Users from "../models/User.js";
+
+const userHandler = async (req, res, next) => {
   try {
-    const users = await users.findAll();
-    res.json(users);
+    const users = await Users.find();
+    // return res.status(201).json({ users });
+
+    return res.status(201).json({ users: users });
   } catch (error) {
-    console.error(" not found users:", error);
-    res.status(404).json({ error: "Not Found" });
+    return handleApiErr(error, next);
   }
-});
+};
 
 export { userHandler };

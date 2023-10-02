@@ -13,7 +13,27 @@ import Button from "../components/Button";
 import RegistrationSchema from "../schemas/register";
 import { fetcher } from "../utils";
 
+import * as React from "react";
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import MuiAlert from "@mui/material/Alert";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 const Register = () => {
+  const [open, setOpen] = React.useState(false);
+  const [success, setSuccess] = React.useState("");
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -38,7 +58,7 @@ const Register = () => {
         gender: formValue.gender,
       };
 
-      const { err, data, message } = await fetcher(
+      const { err, message } = await fetcher(
         ROUTES.API.AUTH.REGISTER,
         "POST",
         payload
@@ -47,7 +67,8 @@ const Register = () => {
       if (err) {
         alert(message);
       } else {
-        alert(JSON.stringify(data));
+        setSuccess("Register is Successful.THANK YOU..");
+        setOpen(true);
       }
     },
   });
@@ -190,6 +211,26 @@ const Register = () => {
           </div>
         </form>
       </Container>
+
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message={success}
+        action={
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}>
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        }
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+      />
     </>
   );
 };
