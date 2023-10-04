@@ -1,0 +1,82 @@
+1){ $and : [{active:true},{role:"manager"}]}
+2){active: true, role:"manager"}
+1 and 2 same
+
+1){
+    $or:[
+        { active: true, role:"manager"},
+        { $and: [{ active: true}, {role: "admin"}]}
+    ]
+}
+
+2){active :true, role: {$in:["manager","admin"]}}
+
+1 and 2 same
+
+{role: {$ne:"admin"}}
+
+{dob: { $lt: ISODate('1995-12-31T23:59:59.000+00:00')}} =>less than
+gt=> greater than
+gte=>greaterthanequalto
+lte=>lessthanequalto
+
+
+
+hw
+user collection
+1)DOB between 1990-01-01 to 1999-12-31
+
+order collection
+1)show order for 2023
+2)order prize 1500-3000
+3)deliveryAt>expecteddeliveryAt
+
+
+ANSWERS
+
+USERS
+1)
+{
+  "DOB": {
+    "$gte": ISODate("1990-01-01T00:00:00.000+00:00"),
+    "$lte": ISODate("1999-12-31T23:59:59.999+00:00")
+  }
+}
+
+{
+    "$and" : [
+        {"DOB": {"$gte": ISODate("1990-01-01T00:00:00.000+00:00")}},
+        {"DOB": {"$lte": ISODate("1999-12-31T23:59:59.999+00:00")}}
+    ]
+}
+
+order
+1){
+  "orderedAt": {
+    "$gte": ISODate("2023-01-01T00:00:00.000+00:00"),
+    "$lt": ISODate("2024-01-01T00:00:00.000+00:00")
+  }
+}
+
+{
+    "$and" : [
+        {"orderedAt": {"$gte": ISODate("2023-01-01T00:00:00.000+00:00")}},
+        {"orderedAt": {"$lte": ISODate("2024-01-01T00:00:00.000+00:00")}}
+    ]
+}
+
+2){
+  "price": {
+    "$gte": 1500,
+    "$lte": 3000
+  }
+}
+
+{
+  "$and": [
+    { "price": { "$gte": 1500 } },
+    { "price": { "$lte": 3000 } }
+  ]
+}
+
+3)

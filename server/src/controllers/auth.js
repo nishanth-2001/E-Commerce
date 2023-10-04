@@ -19,11 +19,16 @@ const registerHandler = async (req, res, next) => {
   }
 };
 
-const loginHandler = (req, res, next) => {
-  const input = req.body;
-  res.json({
-    resister: true,
-  });
+const loginHandler = async (req, res, next) => {
+  try {
+    const input = req.body;
+    const newUser = await createNewUser(input);
+    const respUser = makeUserResponse(newUser);
+
+    return res.status(201).json({ user: respUser });
+  } catch (err) {
+    return handleApiErr(err, next);
+  }
 };
 
 export { registerHandler, loginHandler };

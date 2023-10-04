@@ -17,15 +17,12 @@ import * as React from "react";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import MuiAlert from "@mui/material/Alert";
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
 
 const Register = () => {
   const [open, setOpen] = React.useState(false);
   const [success, setSuccess] = React.useState("");
+
+  const [nameError, setNameError] = React.useState("");
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -230,6 +227,7 @@ const Register = () => {
           vertical: "bottom",
           horizontal: "right",
         }}
+        sx={{ backgroundColor: "green", color: "white" }}
       />
     </>
   );
