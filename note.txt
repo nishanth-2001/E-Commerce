@@ -61,7 +61,7 @@ order
 {
     "$and" : [
         {"orderedAt": {"$gte": ISODate("2023-01-01T00:00:00.000+00:00")}},
-        {"orderedAt": {"$lte": ISODate("2024-01-01T00:00:00.000+00:00")}}
+        {"orderedAt": {"$lt": ISODate("2024-01-01T00:00:00.000+00:00")}}
     ]
 }
 
