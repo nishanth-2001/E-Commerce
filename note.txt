@@ -80,3 +80,27 @@ order
 }
 
 3)
+
+
+
+Aggrecation
+
+
+[
+  {
+    $match: {
+      active: true,
+    },
+  },
+  {
+    $group: {
+      _id: "$role",
+      roleCount: {
+        $sum: 1,
+      },
+      name: {
+        $push: "$name",
+      },
+    },
+  },
+]
