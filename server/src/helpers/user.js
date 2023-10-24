@@ -1,6 +1,8 @@
 import User from "../models/User.js";
 
-import argon2, { verify } from "argon2";
+import argon2 from "argon2";
+import { AppError } from "./errors.js";
+import { ERROR_TYPES, ERR_MESSAGE } from "../constants/error.js";
 
 /**
  * converts user object to  user response
@@ -41,4 +43,29 @@ const createNewUser = async (inputData) => {
   return newUser;
 };
 
-export { createNewUser, makeUserResponse };
+const loginUser = async (inputData) => {
+  const userData = await User.findOne({
+    active: true,
+    email: inputData.email,
+  }).lean();
+  if (!userData) {
+    throw new AppError(
+      ERR_MESSAGE.AUTH.INVALID_CREDENTIALS,
+      ERROR_TYPES.UNAUTHORIZED
+    );
+  }
+  const isPasswordValid = await argon2.verify(
+    userData.password,
+    inputData.password
+  );
+  if (!isPasswordValid) {
+    throw new AppError(
+      ERR_MESSAGE.AUTH.INVALID_CREDENTIALS,
+      ERROR_TYPES.UNAUTHORIZED
+    );
+  }
+
+  return userData;
+};
+
+export { createNewUser, makeUserResponse, loginUser };

@@ -1,6 +1,5 @@
-import { ERROR_TYPES, ERR_MESSAGE } from "../constants/index.js";
-import { AppError, ServerError, handleApiErr } from "../helpers/errors.js";
-import { createNewUser, makeUserResponse } from "../helpers/user.js";
+import { handleApiErr } from "../helpers/errors.js";
+import { createNewUser, loginUser, makeUserResponse } from "../helpers/user.js";
 
 /**
  * @param {import("express").Request<{}, {}, import("../schemas/register").RegistrationInputType, {}>} req - Express Request
@@ -22,9 +21,10 @@ const registerHandler = async (req, res, next) => {
 const loginHandler = async (req, res, next) => {
   try {
     const input = req.body;
-    const newUser = await createNewUser(input);
-    const respUser = makeUserResponse(newUser);
 
+    const user = await loginUser(input);
+
+    const respUser = makeUserResponse(user);
     return res.status(201).json({ user: respUser });
   } catch (err) {
     return handleApiErr(err, next);

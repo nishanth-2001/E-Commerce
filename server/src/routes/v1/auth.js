@@ -7,17 +7,13 @@ import {
   verificationSchema,
 } from "../../schemas/index.js";
 
-import { registerHandler } from "../../controllers/auth.js";
+import { loginHandler, registerHandler } from "../../controllers/auth.js";
 
 const router = express.Router();
 
 router.post("/register", validate(registrationSchema, "body"), registerHandler);
 
-router.post("/login", validate(loginSchema, "body"), (req, res) => {
-  res.json({
-    resister: true,
-  });
-});
+router.post("/login", validate(loginSchema, "body"), loginHandler);
 
 router.post("/verify", validate(verificationSchema, "body"), (req, res) => {
   res.json({

@@ -20,4 +20,7 @@ export const ERR_MESSAGE = {
       MESSAGE: "Email is Already Taken",
     },
   },
+  AUTH: {
+    INVALID_CREDENTIALS: "Email /Password Mismatch",
+  },
 };

@@ -104,3 +104,181 @@ Aggrecation
     },
   },
 ]
+
+
+ {
+      $group: {
+        _id: {
+          gender: '$gender',
+          role: '$role',
+        },
+        count: { $sum: 1 },
+      },
+    },
+
+1)getActiveUserName= 
+{
+    $match: {
+      active: true
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      name: 1
+    }
+  }
+
+  2)getOrdersAbove2500=
+  {
+      $match: {
+        price: { $gte: 2500 },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        price: 1,
+      },
+    },
+3)getRolesOfUsers=
+ {
+      $match: {
+        roles: { $in: ["admin", "manager", "employee"] },
+      },
+    },
+
+4)getRoleCount=
+ {
+      $match: {
+        roles: { $in: ["admin", "manager", "employee"] },
+      },
+    },
+
+5)getGenderCount=
+{
+      $group: {
+        _id: "$gender",
+        count: { $sum: 1 },
+      },
+    },
+
+
+    {male:{admin:1,manager:1,employee:1},female:{admin:1,employee:1}}
+
+
+
+      {$group: {
+        _id: {
+          gender: '$gender',
+          role: '$role',
+        },
+        count: { $sum: 1 },
+      }},
+    
+hw
+1)
+
+let a = [1, 2, 3, 4, 5, 8, 9, 10];
+
+for (let i = 0; i < a.length; i++) {
+  if (a[i] > 5) {
+    console.log(a[i]);
+  }
+}
+
+2)
+
+let a = [1, 2, 3, 4, 5, 8, 9, 10];
+let squaredNumbers = [];
+
+for (let i = 0; i < a.length; i++) {
+  squaredNumbers.push(a[i] * a[i]);
+}
+
+console.log(squaredNumbers);
+
+3)
+const a = [1, 2, 3, 4, 5, 8, 9, 10]
+const product = a.reduce((accumulator, currentValue)=> accumulator*currentValue)
+
+console.log(product)
+
+4)
+let a = [1, 2, 3, 4, 5, 8, 9, 10];
+let firstEven = null;
+
+a.forEach(number => {
+  if (number % 2 === 0 && firstEven === null) {
+    firstEven = number;
+  }
+});
+
+if (firstEven !== null) {
+  console.log(firstEven);
+} else {
+  console.log(null);
+}
+
+
+users=[
+  {
+    "_id": {
+      "gender": "female",
+      "role": "admin"
+    },
+    "count": 6
+  },
+  {
+    "_id": {
+      "gender": "female",
+      "role": "manager"
+    },
+    "count": 5
+  },
+  {
+    "_id": {
+      "gender": "male",
+      "role": "admin"
+    },
+    "count": 3
+  },
+  {
+    "_id": {
+      "gender": "female",
+      "role": "employee"
+    },
+    "count": 5
+  },
+  {
+      "gender": "male",
+      "role": "manager"
+    },
+    "count": 1
+  }
+]
+
+id
+"returned"
+maxTotalAmount
+3715.05
+
+_id
+"cancelled"
+maxTotalAmount
+3956.72
+
+_id
+"delivered"
+maxTotalAmount
+3889.44
+
+_id
+"completed"
+maxTotalAmount
+3945
+
+_id
+"in-progress"
+maxTotalAmount
+3922.22
