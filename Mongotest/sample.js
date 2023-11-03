@@ -286,13 +286,21 @@ const getMaxOfStatusOfOrders = async () => {
     const orderPrice = order.price;
 
     if (totalCount.hasOwnProperty(orderStatus)) {
-      if (order.price > maxId) {
-        maxId = order.price;
-      }
+      // if (order.price > maxId) {
+      //   maxId = order.price;
+      // } else {
+      //   order.price > totalCount;
+      //   totalCount[orderStatus] = [orderPrice];
+      // }
+      totalCount[orderStatus] =
+        totalCount[orderStatus] > orderPrice
+          ? totalCount[orderStatus]
+          : orderPrice;
+
+      //
     } else {
       totalCount[orderStatus] = orderPrice;
     }
-    console.log(maxId);
   });
 
   return totalCount;
